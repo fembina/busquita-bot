@@ -6,8 +6,8 @@ namespace Fembina.Busquita.Bot.Caches;
 
 public static class ImageAttachmentCacheExtensions
 {
-    public static IMessageAttachmentFactory Get(this ImageAttachmentCache cache, ISignalContext<MessagePublishedSignal> context)
+    public static IMessageAttachmentFactory GetOrCreate(this ImageAttachmentCache cache, ISignalContext<MessagePublishedSignal> context)
     {
-        return cache.Get(context.GetAttachmentController());
+        return cache.GetOrCreate(context.GetAttachmentController());
     }
 }

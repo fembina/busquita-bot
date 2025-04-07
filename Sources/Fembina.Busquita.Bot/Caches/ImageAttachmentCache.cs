@@ -11,7 +11,7 @@ public sealed class ImageAttachmentCache(string path)
 {
     private IMessageAttachmentIdentifier? _identifier;
 
-    public IMessageImageAttachmentFactory Get(IMessageAttachmentController controller)
+    public IMessageImageAttachmentFactory GetOrCreate(IMessageAttachmentController controller)
     {
         ArgumentNullException.ThrowIfNull(controller);
 

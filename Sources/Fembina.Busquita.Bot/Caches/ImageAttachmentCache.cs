@@ -13,6 +13,8 @@ public sealed class ImageAttachmentCache(string path)
 
     public IMessageImageAttachmentFactory Get(IMessageAttachmentController controller)
     {
+        ArgumentNullException.ThrowIfNull(controller);
+
         var identifier = _identifier;
 
         return identifier is null
@@ -22,6 +24,10 @@ public sealed class ImageAttachmentCache(string path)
 
     public void Set(IIncomingMessage message)
     {
+        ArgumentNullException.ThrowIfNull(message);
+
+        if (_identifier is not null) return;
+
         _identifier = message
             .Attachments
             .GetImages()

@@ -16,7 +16,7 @@ Once the SDK is installed, open your terminal and navigate to the root directory
 dotnet publish -c Release -r linux-x64 -o bin Sources/Fembina.Busquita.Bot/Fembina.Busquita.Bot.csproj
 ```
 
-This will create the release build for Linux and output the compiled files to the `bin` folder.
+> This will create the release build for Linux and output the compiled files to the `bin` folder.
 
 ### 3. Navigate to the bin Folder
 
@@ -40,7 +40,7 @@ Before starting the Bot, you need to specify your Telegram token. Open the `conf
 }
 ```
 
-Replace `your_telegram_token_here` with your actual Telegram Bot token.
+> Replace `your_telegram_token_here` with your actual Telegram Bot token.
 
 ### 5. Run the Busquita Bot
 
@@ -50,7 +50,7 @@ Now, you can run the Bot application. In the bin directory, execute the followin
 ./Busquita
 ```
 
-The Bot should now be up and running, connected to Telegram.
+> The Bot should now be up and running, connected to Telegram.
 
 ## License
 

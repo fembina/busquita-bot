@@ -1,9 +1,8 @@
+using Fembina.Busquita.Bot.Caches;
 using Fembina.Busquita.Bot.Extensions;
 using Fembina.Busquita.Localization.Contexts;
 using Fembina.Busquita.Storages.Assets;
-using Microsoft.Extensions.Logging;
 using Talkie.Concurrent;
-using Talkie.Controllers.AttachmentControllers;
 using Talkie.Controllers.MessageControllers;
 using Talkie.Disposables;
 using Talkie.Flows;
@@ -17,6 +16,8 @@ namespace Fembina.Busquita.Bot.Behaviors;
 
 public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSubscriber
 {
+    private readonly ImageAttachmentCache _aboutImageCache = new(assets.GetAsset("about"));
+
     public void Subscribe(ISignalFlow flow, IRegisterOnlyDisposableScope disposables, CancellationToken cancellationToken)
     {
         flow.Subscribe<MessagePublishedSignal>(signals => signals
@@ -25,11 +26,9 @@ public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSu
             .HandleAsync((context, cancellation) => context
                 .ToMessageController()
                 .PublishMessageAsync(message => message
-                    .SetContent(context
-                        .Localize(localization => localization.About))
-                    .AddAttachment(context
-                        .GetAttachmentController()
-                        .ImageAttachment.Build(assets.GetAsset("about"))), cancellation)
+                    .SetContent(context.Localize(localization => localization.About))
+                    .AddAttachment(_aboutImageCache.Get(context.GetAttachmentController())), cancellation)
+                .HandleOnSuccess(message => _aboutImageCache.Set(message))
                 .AsValueTask()))
             .UnsubscribeWith(disposables);
     }

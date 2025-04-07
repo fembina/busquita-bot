@@ -17,7 +17,7 @@
     <ItemGroup Label="References">
         <PackageReference Include="Falko.Talkie.Microsoft.Hosting" />
         <PackageReference Include="Falko.Talkie.Platforms.Telegram" />
-        
+
         <PackageReference Include="Serilog" />
         <PackageReference Include="Serilog.Extensions.Logging" />
         <PackageReference Include="Serilog.Sinks.Console" />
@@ -31,12 +31,12 @@
         <None Update="config.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        
+
         <None Update="config.dev.json">
             <DependentUpon>config.json</DependentUpon>
             <CopyToOutputDirectory Condition="'$(Configuration)' == 'Debug'">Always</CopyToOutputDirectory>
         </None>
-        
+
         <None Update="Assets\about.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>

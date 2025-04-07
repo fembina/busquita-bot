@@ -28,7 +28,7 @@ public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSu
                 .PublishMessageAsync(message => message
                     .SetContent(context.Localize(localization => localization.About))
                     .AddAttachment(_aboutImageCache.Get(context.GetAttachmentController())), cancellation)
-                .HandleOnSuccess(message => _aboutImageCache.Set(message))
+                .HandleOnSuccess(_aboutImageCache.TrySet)
                 .AsValueTask()))
             .UnsubscribeWith(disposables);
     }

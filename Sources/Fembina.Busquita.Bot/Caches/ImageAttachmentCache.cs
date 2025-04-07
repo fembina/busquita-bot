@@ -22,7 +22,7 @@ public sealed class ImageAttachmentCache(string path)
             : controller.ImageAttachment.Build(identifier);
     }
 
-    public void Set(IIncomingMessage message)
+    public void TrySet(IIncomingMessage message)
     {
         ArgumentNullException.ThrowIfNull(message);
 

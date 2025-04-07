@@ -38,4 +38,9 @@ public sealed class ImageAttachmentCache(string path)
             .First()
             .Identifier;
     }
+
+    public static implicit operator ImageAttachmentCache(string path)
+    {
+        return new ImageAttachmentCache(path);
+    }
 }

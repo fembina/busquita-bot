@@ -16,7 +16,7 @@ namespace Fembina.Busquita.Bot.Behaviors;
 
 public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSubscriber
 {
-    private readonly ImageAttachmentCache _aboutImageAttachment = new(assets.GetAsset("about"));
+    private readonly ImageAttachmentCache _aboutImageAttachment = assets.GetAsset("about");
 
     public void Subscribe(ISignalFlow flow, IRegisterOnlyDisposableScope disposables, CancellationToken cancellationToken)
     {

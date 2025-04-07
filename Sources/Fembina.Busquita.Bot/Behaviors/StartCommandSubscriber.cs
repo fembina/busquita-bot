@@ -16,7 +16,7 @@ namespace Fembina.Busquita.Bot.Behaviors;
 
 public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSubscriber
 {
-    private readonly ImageAttachmentCache _aboutImageCache = new(assets.GetAsset("about"));
+    private readonly ImageAttachmentCache _aboutImageAttachment = new(assets.GetAsset("about"));
 
     public void Subscribe(ISignalFlow flow, IRegisterOnlyDisposableScope disposables, CancellationToken cancellationToken)
     {
@@ -27,8 +27,8 @@ public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSu
                 .ToMessageController()
                 .PublishMessageAsync(message => message
                     .SetContent(context.Localize(localization => localization.About))
-                    .AddAttachment(_aboutImageCache.GetOrCreate(context)), cancellation)
-                .HandleOnSuccess(_aboutImageCache.TrySet)
+                    .AddAttachment(_aboutImageAttachment.GetOrCreate(context)), cancellation)
+                .HandleOnSuccess(_aboutImageAttachment.TrySet)
                 .AsValueTask()))
             .UnsubscribeWith(disposables);
     }

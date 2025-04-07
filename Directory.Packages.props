@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup Label="Versions">
-        <TalkieVersion>1.13.0.294-preview</TalkieVersion>
+        <TalkieVersion>1.13.0.295-preview</TalkieVersion>
     </PropertyGroup>
     
     <ItemGroup Label="References">

@@ -10,7 +10,8 @@ using Talkie.Hosting;
 
 await new HostBuilder()
     .UseConfigurations()
-    .UseTalkie()
+    .UseTalkie(configuration => configuration
+        .SetSignalsLogging())
     .ConfigureServices(services => services
         .AddSingleton<IAssetProvider, AssetProvider>()
         .AddBehaviorsSubscriber<StartCommandSubscriber>()

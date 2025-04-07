@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../Common.Build.props" />
+
+    <ItemGroup Label="References">
+        <PackageReference Include="Falko.Talkie.Microsoft.Hosting" />
+    </ItemGroup>
+</Project>

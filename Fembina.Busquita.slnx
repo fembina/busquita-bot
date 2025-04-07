@@ -1,0 +1,7 @@
+﻿<Solution>
+  <Folder Name="/Sources/">
+    <Project Path="Sources\Fembina.Busquita.Bot\Fembina.Busquita.Bot.csproj" Type="Classic C#" />
+    <Project Path="Sources\Fembina.Busquita.Localization\Fembina.Busquita.Localization.csproj" Type="Classic C#" />
+    <Project Path="Sources\Fembina.Busquita.Storages\Fembina.Busquita.Storages.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>

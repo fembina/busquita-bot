@@ -1,0 +1,27 @@
+<Project>
+    <PropertyGroup Label="Variables">
+        <IsDirectoryBuild>true</IsDirectoryBuild>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Assembly">
+        <Version>0.0.0</Version>
+        <TargetFramework>net9.0</TargetFramework>
+        <IsAotCompatible>true</IsAotCompatible>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <SolutionDir Condition="$(SolutionDir) == ''">../../</SolutionDir>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Assembly" Condition="'$(Configuration)' == 'Release'">
+        <PublishTrimmed>true</PublishTrimmed>
+        <TrimMode>partial</TrimMode>
+        <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
+        <DebugType>none</DebugType>
+        <OptimizationPreference>speed</OptimizationPreference>
+    </PropertyGroup>
+
+    <PropertyGroup Label="Language">
+        <LangVersion>13</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+</Project>

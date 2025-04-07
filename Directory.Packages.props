@@ -1,0 +1,15 @@
+<Project>
+    <PropertyGroup Label="Versions">
+        <TalkieVersion>1.13.0.294-preview</TalkieVersion>
+    </PropertyGroup>
+    
+    <ItemGroup Label="References">
+        <PackageVersion Include="Falko.Talkie.Microsoft.Hosting" Version="$(TalkieVersion)" />
+        <PackageVersion Include="Falko.Talkie.Platforms.Telegram" Version="$(TalkieVersion)" />
+        
+        <PackageVersion Include="Serilog" Version="4.2.0" />
+        <PackageVersion Include="Serilog.Extensions.Logging" Version="9.0.1" />
+        <PackageVersion Include="Serilog.Sinks.Console" Version="6.0.0" />
+        <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
+    </ItemGroup>
+</Project>

@@ -50,6 +50,4 @@ public sealed class TrackNameSubscriber : IBehaviorsSubscriber
             .ToMessageController()
             .PublishMessageAsync($"Track name '{trackName}'", cancellationToken);
     }
-
-
 }

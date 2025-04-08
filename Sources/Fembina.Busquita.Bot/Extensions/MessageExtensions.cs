@@ -1,3 +1,4 @@
+using Talkie.Models.Messages;
 using Talkie.Pipelines.Intercepting;
 using Talkie.Signals;
 
@@ -30,6 +31,19 @@ public static class MessageExtensions
             var commandSpan = textSpan.Slice(1, commandLength);
 
             return commandSpan.Equals(commandName.AsSpan(), StringComparison.InvariantCultureIgnoreCase);
+        });
+    }
+
+    public static ISignalInterceptingPipelineBuilder<MessagePublishedSignal> SkipCommand
+    (
+        this ISignalInterceptingPipelineBuilder<MessagePublishedSignal> builder
+    )
+    {
+        return builder.Where(signal =>
+        {
+            var text = signal.Message.GetText();
+
+            return string.IsNullOrEmpty(text) || text[0] is not '/';
         });
     }
 }

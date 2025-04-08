@@ -15,6 +15,7 @@ await new HostBuilder()
     .ConfigureServices(services => services
         .AddSingleton<IAssetProvider, AssetProvider>()
         .AddBehaviorsSubscriber<StartCommandSubscriber>()
+        .AddBehaviorsSubscriber<TrackNameSubscriber>()
         .AddIntegrationsSubscriber<TelegramSubscriber>())
     .ConfigureLogging(logging => logging
         .ClearProviders()

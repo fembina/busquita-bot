@@ -1,11 +1,13 @@
 using Talkie.Controllers.AttachmentControllers;
+using Talkie.Handlers;
 using Talkie.Models.Identifiers;
 using Talkie.Models.Messages.Attachments;
 using Talkie.Models.Messages.Attachments.Factories;
 using Talkie.Models.Messages.Attachments.Variants;
 using Talkie.Models.Messages.Incoming;
+using Talkie.Signals;
 
-namespace Fembina.Busquita.Bot.Caches;
+namespace Fembina.Busquita.Storages.Caches;
 
 public sealed class ImageAttachmentCache(string path)
 {
@@ -20,6 +22,16 @@ public sealed class ImageAttachmentCache(string path)
         return identifier is null
             ? controller.ImageAttachment.Build(path)
             : controller.ImageAttachment.Build(identifier);
+    }
+
+    public IMessageAttachmentFactory GetOrCreate(ISignalContext<MessagePublishedSignal> context)
+    {
+        return GetOrCreate(context.GetAttachmentController());
+    }
+
+    public IMessageAttachmentFactory GetOrCreate(ISignalContext<MessageExchangedSignal> context)
+    {
+        return GetOrCreate(context.GetAttachmentController());
     }
 
     public void TrySet(IIncomingMessage message)
@@ -39,8 +51,5 @@ public sealed class ImageAttachmentCache(string path)
             .Identifier;
     }
 
-    public static implicit operator ImageAttachmentCache(string path)
-    {
-        return new ImageAttachmentCache(path);
-    }
+    public static implicit operator ImageAttachmentCache(string path) => new(path);
 }

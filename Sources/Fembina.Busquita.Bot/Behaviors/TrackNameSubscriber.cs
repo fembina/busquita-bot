@@ -37,7 +37,7 @@ public sealed class TrackNameSubscriber : IBehaviorsSubscriber
 
         var trackName = TrackNameFormatter.FormatTextToTrackName(content.Text);
 
-        if (trackName.Length < 3)
+        if (trackName.Length < TrackNameFormatter.TrackMinLength)
         {
             await context
                 .ToMessageController()

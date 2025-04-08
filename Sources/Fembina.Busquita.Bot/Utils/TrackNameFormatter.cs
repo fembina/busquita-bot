@@ -5,9 +5,13 @@ namespace Fembina.Busquita.Bot.Utils;
 
 public static class TrackNameFormatter
 {
+    public const int TrackMaxLength = 32;
+
+    public const int TrackMinLength = 3;
+
     public static string FormatTextToTrackName(string text)
     {
-        var builder = TrackNameBuilderCache.Reserve();
+        var builder = StringBuilderCache.Reserve();
 
         try
         {
@@ -17,7 +21,7 @@ public static class TrackNameFormatter
 
             foreach (var symbol in textSpan)
             {
-                if (builder.Length >= TrackNameBuilderCache.TrackMaxLength) break;
+                if (builder.Length >= TrackMaxLength) break;
 
                 var symbolCategory = char.GetUnicodeCategory(symbol);
 
@@ -57,7 +61,7 @@ public static class TrackNameFormatter
         }
         finally
         {
-            TrackNameBuilderCache.Release(builder);
+            StringBuilderCache.Release(builder);
         }
     }
 

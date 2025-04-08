@@ -2,9 +2,9 @@ using System.Text;
 
 namespace Fembina.Busquita.Storages.Caches;
 
-public static class TrackNameBuilderCache
+public static class StringBuilderCache
 {
-    public const int TrackMaxLength = 32;
+    private const int Capacity = 256;
 
     [ThreadStatic]
     private static StringBuilder? _builder;
@@ -13,11 +13,11 @@ public static class TrackNameBuilderCache
     {
         var builder = Interlocked.Exchange(ref _builder, null);
 
-        if (builder is null) return new StringBuilder(TrackMaxLength);
+        if (builder is null) return new StringBuilder(Capacity);
 
         if (builder.Length > 0) builder.Clear();
 
-        if (builder.Capacity > TrackMaxLength)  builder.EnsureCapacity(TrackMaxLength);
+        if (builder.Capacity > Capacity)  builder.EnsureCapacity(Capacity);
 
         return builder;
     }

@@ -9,60 +9,59 @@ public static class TrackNameFormatter
 
     public const int TrackMinLength = 3;
 
+    private static readonly StringBuilderCache StringBuilderCache = new(TrackMaxLength);
+
     public static string FormatTextToTrackName(string text)
     {
-        var builder = StringBuilderCache.Reserve();
+        using var builderValue = StringBuilderCache.GetOrCreate();
 
-        try
+        var builder = builderValue.Value;
+
+        var textSpan = text.AsSpan();
+
+        var previousIsSpace = false;
+
+        foreach (var symbol in textSpan)
         {
-            var textSpan = text.AsSpan();
+            if (builder.Length >= TrackMaxLength) break;
 
-            var previousIsSpace = false;
+            var symbolCategory = char.GetUnicodeCategory(symbol);
 
-            foreach (var symbol in textSpan)
+            if (IsTrackNameSymbol(symbolCategory))
             {
-                if (builder.Length >= TrackMaxLength) break;
+                builder.Append(symbol);
+            }
+            else if (symbolCategory is UnicodeCategory.SpaceSeparator)
+            {
+                if (previousIsSpace) continue;
 
-                var symbolCategory = char.GetUnicodeCategory(symbol);
+                builder.Append(symbol);
 
-                if (IsTrackNameSymbol(symbolCategory))
-                {
-                    builder.Append(symbol);
-                }
-                else if (symbolCategory is UnicodeCategory.SpaceSeparator)
-                {
-                    if (previousIsSpace) continue;
+                previousIsSpace = true;
 
-                    builder.Append(symbol);
+                continue;
+            }
+            else if (symbolCategory is UnicodeCategory.ParagraphSeparator or UnicodeCategory.LineSeparator)
+            {
+                break;
+            }
+            else
+            {
+                if (previousIsSpace) continue;
 
-                    previousIsSpace = true;
+                builder.Append(' ');
 
-                    continue;
-                }
-                else if (symbolCategory is UnicodeCategory.ParagraphSeparator or UnicodeCategory.LineSeparator)
-                {
-                    break;
-                }
-                else
-                {
-                    if (previousIsSpace) continue;
+                previousIsSpace = true;
 
-                    builder.Append(' ');
-
-                    previousIsSpace = true;
-
-                    continue;
-                }
-
-                previousIsSpace = false;
+                continue;
             }
 
-            return builder.ToString();
+            previousIsSpace = false;
         }
-        finally
-        {
-            StringBuilderCache.Release(builder);
-        }
+
+        return builder.Length >= TrackMinLength
+            ? builder.ToString()
+            : string.Empty;
     }
 
     private static bool IsTrackNameSymbol(UnicodeCategory symbolCategory)

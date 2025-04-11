@@ -30,7 +30,7 @@ public sealed class TrackNameSubscriber : IBehaviorsSubscriber
         {
             await context
                 .ToMessageController()
-                .PublishMessageAsync("Empty", cancellationToken);
+                .PublishMessageAsync("Track name is empty", cancellationToken);
 
             return;
         }
@@ -41,13 +41,13 @@ public sealed class TrackNameSubscriber : IBehaviorsSubscriber
         {
             await context
                 .ToMessageController()
-                .PublishMessageAsync($"Too short '{trackName}'", cancellationToken);
+                .PublishMessageAsync("Track name too short", cancellationToken);
 
             return;
         }
 
         await context
             .ToMessageController()
-            .PublishMessageAsync($"Track name '{trackName}'", cancellationToken);
+            .PublishMessageAsync($"Track name is '{trackName}'", cancellationToken);
     }
 }

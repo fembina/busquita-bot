@@ -2,27 +2,36 @@ using System.Text;
 
 namespace Fembina.Busquita.Storages.Caches;
 
-public static class StringBuilderCache
+public sealed class StringBuilderCache
 {
-    private const int Capacity = 256;
+    private readonly Action<StringBuilder> _trySetDelegate;
 
-    [ThreadStatic]
-    private static StringBuilder? _builder;
+    private readonly int _capacity;
 
-    public static StringBuilder Reserve()
+    private StringBuilder? _builder;
+
+    public StringBuilderCache(int capacity = 256)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(capacity, nameof(capacity));
+
+        _capacity = capacity;
+        _trySetDelegate = TrySet;
+    }
+
+    public ShotTimeValue<StringBuilder> GetOrCreate()
     {
         var builder = Interlocked.Exchange(ref _builder, null);
 
-        if (builder is null) return new StringBuilder(Capacity);
+        if (builder is null) return new ShotTimeValue<StringBuilder>(new StringBuilder(_capacity), _trySetDelegate);
 
         if (builder.Length > 0) builder.Clear();
 
-        if (builder.Capacity > Capacity)  builder.EnsureCapacity(Capacity);
+        if (builder.Capacity > _capacity)  builder.EnsureCapacity(_capacity);
 
-        return builder;
+        return new ShotTimeValue<StringBuilder>(builder, _trySetDelegate);
     }
 
-    public static void Release(StringBuilder builder)
+    private void TrySet(StringBuilder builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
 

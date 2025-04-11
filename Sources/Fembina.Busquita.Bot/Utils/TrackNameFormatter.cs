@@ -13,9 +13,9 @@ public static class TrackNameFormatter
 
     public static string FormatTextToTrackName(string text)
     {
-        using var builderValue = StringBuilderCache.GetOrCreate();
+        using var builderContext = StringBuilderCache.GetOrCreate();
 
-        var builder = builderValue.Value;
+        var builderValue = builderContext.Value;
 
         var textSpan = text.AsSpan();
 
@@ -23,19 +23,19 @@ public static class TrackNameFormatter
 
         foreach (var symbol in textSpan)
         {
-            if (builder.Length >= TrackMaxLength) break;
+            if (builderValue.Length >= TrackMaxLength) break;
 
             var symbolCategory = char.GetUnicodeCategory(symbol);
 
             if (IsTrackNameSymbol(symbolCategory))
             {
-                builder.Append(symbol);
+                builderValue.Append(symbol);
             }
             else if (symbolCategory is UnicodeCategory.SpaceSeparator)
             {
                 if (previousIsSpace) continue;
 
-                builder.Append(symbol);
+                builderValue.Append(symbol);
 
                 previousIsSpace = true;
 
@@ -49,7 +49,7 @@ public static class TrackNameFormatter
             {
                 if (previousIsSpace) continue;
 
-                builder.Append(' ');
+                builderValue.Append(' ');
 
                 previousIsSpace = true;
 
@@ -59,8 +59,8 @@ public static class TrackNameFormatter
             previousIsSpace = false;
         }
 
-        return builder.Length >= TrackMinLength
-            ? builder.ToString()
+        return builderValue.Length >= TrackMinLength
+            ? builderValue.ToString()
             : string.Empty;
     }
 

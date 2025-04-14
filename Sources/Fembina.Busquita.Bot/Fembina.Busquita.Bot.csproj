@@ -9,7 +9,6 @@
 
     <PropertyGroup Label="Assembly" Condition="'$(Configuration)' == 'Release'">
         <SelfContained>true</SelfContained>
-        <PublishSingleFile>true</PublishSingleFile>
         <PublishReadyToRun>true</PublishReadyToRun>
         <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
     </PropertyGroup>

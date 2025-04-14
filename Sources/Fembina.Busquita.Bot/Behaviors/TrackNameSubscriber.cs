@@ -17,7 +17,7 @@ public sealed class TrackNameSubscriber : IBehaviorsSubscriber
     {
         flow.Subscribe<MessagePublishedSignal>(signals => signals
             .SkipSelfRelated()
-            .SkipCommand()
+            .SkipCommands()
             .HandleAsync(HandleTackNameAsync))
             .UnsubscribeWith(disposables);
     }

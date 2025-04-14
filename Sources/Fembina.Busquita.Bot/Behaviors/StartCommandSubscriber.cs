@@ -22,7 +22,7 @@ public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSu
     {
         flow.Subscribe<MessagePublishedSignal>(signals => signals
             .SkipSelfRelated()
-            .OnlyCommand("start")
+            .OnlyCommands("start")
             .HandleAsync((context, cancellation) => context
                 .ToMessageController()
                 .PublishMessageAsync(message => message

@@ -6,7 +6,7 @@ namespace Fembina.Busquita.Bot.Extensions;
 
 public static class MessageExtensions
 {
-    public static ISignalInterceptingPipelineBuilder<MessagePublishedSignal> OnlyCommand
+    public static ISignalInterceptingPipelineBuilder<MessagePublishedSignal> OnlyCommands
     (
         this ISignalInterceptingPipelineBuilder<MessagePublishedSignal> builder,
         string commandName
@@ -34,7 +34,7 @@ public static class MessageExtensions
         });
     }
 
-    public static ISignalInterceptingPipelineBuilder<MessagePublishedSignal> SkipCommand
+    public static ISignalInterceptingPipelineBuilder<MessagePublishedSignal> SkipCommands
     (
         this ISignalInterceptingPipelineBuilder<MessagePublishedSignal> builder
     )

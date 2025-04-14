@@ -26,28 +26,14 @@ public sealed class TrackNameSubscriber : IBehaviorsSubscriber
     {
         var content = context.GetMessage().Content;
 
-        if (content.IsEmpty)
-        {
-            await context
-                .ToMessageController()
-                .PublishMessageAsync("Track name is empty", cancellationToken);
-
-            return;
-        }
+        if (content.IsEmpty) return;
 
         var trackName = TrackNameFormatter.FormatTextToTrackName(content.Text);
 
-        if (trackName.Length < TrackNameFormatter.TrackMinLength)
-        {
-            await context
-                .ToMessageController()
-                .PublishMessageAsync("Track name too short", cancellationToken);
-
-            return;
-        }
-
         await context
             .ToMessageController()
-            .PublishMessageAsync($"Track name is '{trackName}'", cancellationToken);
+            .PublishMessageAsync(trackName.Length >= TrackNameFormatter.TrackMinLength
+                ? $"Track name is '{trackName}'"
+                : "Track name too short", cancellationToken);
     }
 }

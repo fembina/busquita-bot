@@ -12,3 +12,7 @@
 
 # USER
 *.DotSettings.user
+
+# CONFIGS
+config.json
+config.dev.json

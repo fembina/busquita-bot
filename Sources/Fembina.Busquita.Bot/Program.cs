@@ -24,7 +24,7 @@ await new HostBuilder()
 
 return;
 
-static void ConfigureLogging(ILoggingBuilder logging)
+static void ConfigureLogging(ILoggingBuilder loggingBuilder)
 {
     var loggerRuntime = LoggerRuntime.Global;
 
@@ -37,7 +37,7 @@ static void ConfigureLogging(ILoggingBuilder logging)
         .AddTarget(SimpleLogContextRenderer.Instance,
             new LoggerFileTarget("busquita", "./Logs")));
 
-    logging.ClearProviders()
+    loggingBuilder.ClearProviders()
         .SetMinimumLevel(logLevel.ToMinimumLogLevel())
         .AddProvider(loggerRuntime.ToMicrosoftLoggerProvider(true));
 }

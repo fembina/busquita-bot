@@ -1,8 +1,8 @@
 using Fembina.Busquita.Localization.Factories;
 using Fembina.Busquita.Localization.Providers;
 using Fembina.Busquita.Localization.Variants;
-using Talkie.Handlers;
-using Talkie.Signals;
+using Falko.Talkie.Handlers;
+using Falko.Talkie.Signals;
 
 namespace Fembina.Busquita.Localization.Contexts;
 

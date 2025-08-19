@@ -17,10 +17,12 @@
         <PackageReference Include="Falko.Talkie.Microsoft.Hosting" />
         <PackageReference Include="Falko.Talkie.Platforms.Telegram" />
 
-        <PackageReference Include="Serilog" />
-        <PackageReference Include="Serilog.Extensions.Logging" />
-        <PackageReference Include="Serilog.Sinks.Console" />
-        <PackageReference Include="Serilog.Sinks.File" />
+        <PackageReference Include="Falko.ZeroLogger" />
+
+        <PackageReference Include="Falko.ZeroLogger.Microsoft.Logging" />
+        <PackageReference Include="Falko.ZeroLogger.Targets.File" />
+        <PackageReference Include="Falko.ZeroLogger.Targets.Console" />
+        <PackageReference Include="Falko.ZeroLogger.Renderers.Simple" />
 
         <ProjectReference Include="..\Fembina.Busquita.Localization\Fembina.Busquita.Localization.csproj" />
         <ProjectReference Include="..\Fembina.Busquita.Storages\Fembina.Busquita.Storages.csproj" />

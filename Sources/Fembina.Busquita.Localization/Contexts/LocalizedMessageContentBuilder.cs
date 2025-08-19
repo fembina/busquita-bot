@@ -1,6 +1,6 @@
 using System.Collections.Frozen;
 using Fembina.Busquita.Localization.Factories;
-using Talkie.Models.Messages.Contents;
+using Falko.Talkie.Models.Messages.Contents;
 
 namespace Fembina.Busquita.Localization.Contexts;
 

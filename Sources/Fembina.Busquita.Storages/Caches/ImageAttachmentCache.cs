@@ -1,11 +1,11 @@
-using Talkie.Controllers.AttachmentControllers;
-using Talkie.Handlers;
-using Talkie.Models.Identifiers;
-using Talkie.Models.Messages.Attachments;
-using Talkie.Models.Messages.Attachments.Factories;
-using Talkie.Models.Messages.Attachments.Variants;
-using Talkie.Models.Messages.Incoming;
-using Talkie.Signals;
+using Falko.Talkie.Controllers.AttachmentControllers;
+using Falko.Talkie.Handlers;
+using Falko.Talkie.Models.Identifiers;
+using Falko.Talkie.Models.Messages.Attachments;
+using Falko.Talkie.Models.Messages.Attachments.Factories;
+using Falko.Talkie.Models.Messages.Attachments.Variants;
+using Falko.Talkie.Models.Messages.Incoming;
+using Falko.Talkie.Signals;
 
 namespace Fembina.Busquita.Storages.Caches;
 
@@ -18,6 +18,7 @@ public sealed class ImageAttachmentCache(string path)
         ArgumentNullException.ThrowIfNull(controller);
 
         var identifier = _identifier;
+
 
         return identifier is null
             ? controller.ImageAttachment.Build(path)

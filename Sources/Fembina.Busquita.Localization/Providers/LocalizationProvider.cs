@@ -1,5 +1,5 @@
 using Fembina.Busquita.Localization.Variants;
-using Talkie.Localizations;
+using Falko.Talkie.Localizations;
 
 namespace Fembina.Busquita.Localization.Providers;
 

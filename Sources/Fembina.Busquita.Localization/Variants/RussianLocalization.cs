@@ -1,6 +1,6 @@
 using Fembina.Busquita.Localization.Factories;
-using Talkie.Models.Messages.Contents;
-using Talkie.Models.Messages.Contents.Styles;
+using Falko.Talkie.Models.Messages.Contents;
+using Falko.Talkie.Models.Messages.Contents.Styles;
 
 namespace Fembina.Busquita.Localization.Variants;
 

@@ -1,15 +1,15 @@
 <Project>
-    <PropertyGroup Label="Versions">
-        <TalkieVersion>1.13.0.296-preview</TalkieVersion>
-    </PropertyGroup>
-
-    <ItemGroup Label="References">
-        <PackageVersion Include="Falko.Talkie.Microsoft.Hosting" Version="$(TalkieVersion)" />
-        <PackageVersion Include="Falko.Talkie.Platforms.Telegram" Version="$(TalkieVersion)" />
-
-        <PackageVersion Include="Serilog" Version="4.2.0" />
-        <PackageVersion Include="Serilog.Extensions.Logging" Version="9.0.1" />
-        <PackageVersion Include="Serilog.Sinks.Console" Version="6.0.0" />
-        <PackageVersion Include="Serilog.Sinks.File" Version="6.0.0" />
-    </ItemGroup>
+  <PropertyGroup Label="Versions">
+    <TalkieVersion>1.13.0.313-preview</TalkieVersion>
+    <ZeroLoggerVersion>0.6.0.154-preview</ZeroLoggerVersion>
+  </PropertyGroup>
+  <ItemGroup Label="References">
+    <PackageVersion Include="Falko.Talkie.Microsoft.Hosting" Version="$(TalkieVersion)" />
+    <PackageVersion Include="Falko.Talkie.Platforms.Telegram" Version="$(TalkieVersion)" />
+    <PackageVersion Include="Falko.ZeroLogger" Version="$(ZeroLoggerVersion)" />
+    <PackageVersion Include="Falko.ZeroLogger.Microsoft.Logging" Version="0.6.0.154-preview" />
+    <PackageVersion Include="Falko.ZeroLogger.Targets.File" Version="$(ZeroLoggerVersion)" />
+    <PackageVersion Include="Falko.ZeroLogger.Targets.Console" Version="$(ZeroLoggerVersion)" />
+    <PackageVersion Include="Falko.ZeroLogger.Renderers.Simple" Version="$(ZeroLoggerVersion)" />
+  </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
-using Talkie.Disposables;
-using Talkie.Flows;
-using Talkie.Subscribers;
+using Falko.Talkie.Disposables;
+using Falko.Talkie.Flows;
+using Falko.Talkie.Subscribers;
 
 namespace Fembina.Busquita.Bot.Integrations;
 

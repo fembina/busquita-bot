@@ -1,6 +1,6 @@
 using System.Collections.Frozen;
 using Microsoft.Extensions.Logging;
-using Talkie.Sequences;
+using Falko.Talkie.Sequences;
 
 namespace Fembina.Busquita.Storages.Assets;
 
@@ -24,12 +24,10 @@ public sealed class AssetProvider : IAssetProvider
             return;
         }
 
-        var assetsExtensions = FrozenSequence.Wrap(".png", ".jpg");
-
         try
         {
             _assets = assetsPaths
-                .Where(path => assetsExtensions.Contains(Path.GetExtension(path)))
+                .Where(path => new ReadOnlySpan<string>([".png", ".jpg"]).Contains(Path.GetExtension(path)))
                 .Select(path => new KeyValuePair<string, string>(Path.GetFileNameWithoutExtension(path).ToLowerInvariant(), path))
                 .ToFrozenDictionary();
         }

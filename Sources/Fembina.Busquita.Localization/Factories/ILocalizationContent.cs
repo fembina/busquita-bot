@@ -1,5 +1,5 @@
 using Fembina.Busquita.Localization.Contexts;
-using Talkie.Models.Messages.Contents;
+using Falko.Talkie.Models.Messages.Contents;
 
 namespace Fembina.Busquita.Localization.Factories;
 

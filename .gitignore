@@ -14,5 +14,5 @@
 *.DotSettings.user
 
 # CONFIGS
-config.json
-config.dev.json
+Sources/Fembina.Busquita.Bot/config.json
+Sources/Fembina.Busquita.Bot/config.dev.json

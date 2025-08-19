@@ -44,6 +44,6 @@
     <Target Name="EnsureConfigFilesExist" BeforeTargets="BeforeBuild">
         <WriteLinesToFile File="config.json" Lines="{}" Overwrite="false" Condition="!Exists('config.json')" />
 
-        <WriteLinesToFile File="config.dev.json" Lines="{}" Overwrite="false" Condition="!Exists('config.dev.json') AND '$(Configuration)' == 'Debug'" />
+        <WriteLinesToFile File="config.dev.json" Lines="{}" Overwrite="false" Condition="!Exists('config.dev.json')" />
     </Target>
 </Project>

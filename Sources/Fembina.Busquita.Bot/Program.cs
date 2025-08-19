@@ -1,5 +1,4 @@
-﻿using System.Logging.Builders;
-using System.Logging.Logs;
+﻿using System.Logging.Logs;
 using System.Logging.Renderers;
 using System.Logging.Runtimes;
 using System.Logging.Targets;

@@ -33,8 +33,10 @@ static void ConfigureLogging(ILoggingBuilder logging)
 
     loggerRuntime.Initialize(new LoggerContextBuilder().SetLevel(logLevel)
         .SetLevel(logLevel)
-        .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
-        .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("busquita", "./Logs")));
+        .AddTarget(SimpleLogContextRenderer.Instance,
+            LoggerConsoleTarget.Instance)
+        .AddTarget(SimpleLogContextRenderer.Instance,
+            new LoggerFileTarget("busquita", "./Logs")));
 
     logging.ClearProviders()
         .SetMinimumLevel(logLevel.ToMinimumLogLevel())

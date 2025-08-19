@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup Label="Versions">
         <TalkieVersion>1.13.0.313-preview</TalkieVersion>
-        <ZeroLoggerVersion>0.6.0.157-preview</ZeroLoggerVersion>
+        <ZeroLoggerVersion>0.6.0.158-preview</ZeroLoggerVersion>
     </PropertyGroup>
     
     <ItemGroup Label="References">

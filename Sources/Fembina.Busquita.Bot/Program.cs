@@ -14,6 +14,7 @@ using Falko.Talkie.Hosting;
 await new HostBuilder()
     .UseConfigurations()
     .UseTalkie(configuration => configuration
+        .SetShutdownOnUnobservedExceptions()
         .SetSignalsLogging())
     .ConfigureServices(services => services
         .AddSingleton<IAssetProvider, AssetProvider>()

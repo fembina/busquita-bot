@@ -1,7 +1,5 @@
 ﻿using System.Logging.Builders;
-using System.Logging.Loggers;
 using System.Logging.Logs;
-using System.Logging.Providers;
 using System.Logging.Renderers;
 using System.Logging.Runtimes;
 using System.Logging.Targets;
@@ -13,15 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Falko.Talkie.Hosting;
-using LoggerFactory = System.Logging.Factories.LoggerFactory;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-
-using var loggerRuntime = LoggerRuntime.Global;
-
-loggerRuntime.Initialize(new LoggerContextBuilder()
-    .SetLevel(LogLevels.TraceAndAbove)
-    .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
-    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("busquita", "./Logs")));
 
 await new HostBuilder()
     .UseConfigurations()
@@ -31,8 +20,23 @@ await new HostBuilder()
         .AddSingleton<IAssetProvider, AssetProvider>()
         .AddBehaviorsSubscriber<StartCommandSubscriber>()
         .AddIntegrationsSubscriber<TelegramSubscriber>())
-    .ConfigureLogging(logging => logging
-        .ClearProviders()
-        .SetMinimumLevel(LogLevel.Trace)
-        .AddProvider(new MicrosoftLoggerProvider(loggerRuntime, false)))
+    .ConfigureLogging(ConfigureLogging)
     .RunConsoleAsync();
+
+return;
+
+static void ConfigureLogging(ILoggingBuilder logging)
+{
+    var loggerRuntime = LoggerRuntime.Global;
+
+    var logLevel = LogLevels.TraceAndAbove;
+
+    loggerRuntime.Initialize(new LoggerContextBuilder().SetLevel(logLevel)
+        .SetLevel(logLevel)
+        .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
+        .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("busquita", "./Logs")));
+
+    logging.ClearProviders()
+        .SetMinimumLevel(logLevel.ToMinimumLogLevel())
+        .AddProvider(loggerRuntime.ToMicrosoftLoggerProvider(true));
+}

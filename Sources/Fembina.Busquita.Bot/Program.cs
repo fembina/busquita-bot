@@ -31,7 +31,7 @@ static void ConfigureLogging(ILoggingBuilder logging)
 
     var logLevel = LogLevels.TraceAndAbove;
 
-    loggerRuntime.Initialize(new LoggerContextBuilder().SetLevel(logLevel)
+    loggerRuntime.Initialize(builder => builder
         .SetLevel(logLevel)
         .AddTarget(SimpleLogContextRenderer.Instance,
             LoggerConsoleTarget.Instance)

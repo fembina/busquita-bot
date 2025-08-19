@@ -40,4 +40,10 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
+
+    <Target Name="EnsureConfigFilesExist" BeforeTargets="BeforeBuild">
+        <WriteLinesToFile File="config.json" Lines="{}" Overwrite="false" />
+
+        <WriteLinesToFile File="config.dev.json" Lines="{\n\n}" Overwrite="false" Condition="'$(Configuration)' == 'Debug'" />
+    </Target>
 </Project>

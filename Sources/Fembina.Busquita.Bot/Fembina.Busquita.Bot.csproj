@@ -20,6 +20,7 @@
         <PackageReference Include="Falko.ZeroLogger.Microsoft.Logging" />
         <PackageReference Include="Falko.ZeroLogger.Targets.File" />
         <PackageReference Include="Falko.ZeroLogger.Targets.Console" />
+        <PackageReference Include="Falko.ZeroLogger.Targets.Concurrent" />
         <PackageReference Include="Falko.ZeroLogger.Renderers.Simple" />
 
         <ProjectReference Include="..\Fembina.Busquita.Localization\Fembina.Busquita.Localization.csproj" />

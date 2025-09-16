@@ -8,11 +8,22 @@ using Fembina.Busquita.Bot.Integrations;
 using Fembina.Busquita.Storages.Assets;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Falko.Talkie.Hosting;
+
+using var loggerRuntime = LoggerRuntime.Global;
+
+loggerRuntime.Initialize(builder => builder
+    .SetLevel(LogLevels.TraceAndAbove)
+    .AddTarget(SimpleLogContextRenderer.Instance,
+        new LoggerFileTarget("busquita", "./Logs")
+            .AsConcurrent())
+    .AddTarget(SimpleLogContextRenderer.Instance,
+        LoggerConsoleTarget.Instance
+            .AsConcurrent()));
 
 await new HostBuilder()
     .UseConfigurations()
+    .UseZeroLogger(loggerRuntime)
     .UseTalkie(configuration => configuration
         .SetShutdownOnUnobservedExceptions()
         .SetSignalsLogging())
@@ -20,25 +31,4 @@ await new HostBuilder()
         .AddSingleton<IAssetProvider, AssetProvider>()
         .AddBehaviorsSubscriber<StartCommandSubscriber>()
         .AddIntegrationsSubscriber<TelegramSubscriber>())
-    .ConfigureLogging(ConfigureLogging)
     .RunConsoleAsync();
-
-return;
-
-static void ConfigureLogging(ILoggingBuilder loggingBuilder)
-{
-    var loggerRuntime = LoggerRuntime.Global;
-
-    var logLevel = LogLevels.TraceAndAbove;
-
-    loggerRuntime.Initialize(builder => builder
-        .SetLevel(logLevel)
-        .AddTarget(SimpleLogContextRenderer.Instance,
-            LoggerConsoleTarget.Instance)
-        .AddTarget(SimpleLogContextRenderer.Instance,
-            new LoggerFileTarget("busquita", "./Logs")));
-
-    loggingBuilder.ClearProviders()
-        .SetMinimumLevel(logLevel.ToMinimumLogLevel())
-        .AddProvider(loggerRuntime.ToMicrosoftLoggerProvider(true));
-}

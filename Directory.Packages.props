@@ -1,14 +1,14 @@
 <Project>
     <PropertyGroup Label="Versions">
         <TalkieVersion>1.13.0.313-preview</TalkieVersion>
-        <ZeroLoggerVersion>0.8.0.177-preview</ZeroLoggerVersion>
+        <ZeroLoggerVersion>0.8.0.178-preview</ZeroLoggerVersion>
     </PropertyGroup>
 
     <ItemGroup Label="References">
         <PackageVersion Include="Falko.Talkie.Microsoft.Hosting" Version="$(TalkieVersion)" />
         <PackageVersion Include="Falko.Talkie.Platforms.Telegram" Version="$(TalkieVersion)" />
 
-        <PackageVersion Include="Falko.ZeroLogger.Microsoft.Logging" Version="$(ZeroLoggerVersion)" />
+        <PackageVersion Include="Falko.ZeroLogger.Microsoft.Hosting" Version="$(ZeroLoggerVersion)" />
         <PackageVersion Include="Falko.ZeroLogger.Targets.File" Version="$(ZeroLoggerVersion)" />
         <PackageVersion Include="Falko.ZeroLogger.Targets.Console" Version="$(ZeroLoggerVersion)" />
         <PackageVersion Include="Falko.ZeroLogger.Targets.Concurrent" Version="$(ZeroLoggerVersion)" />

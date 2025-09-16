@@ -17,7 +17,7 @@
         <PackageReference Include="Falko.Talkie.Microsoft.Hosting" />
         <PackageReference Include="Falko.Talkie.Platforms.Telegram" />
 
-        <PackageReference Include="Falko.ZeroLogger.Microsoft.Logging" />
+        <PackageReference Include="Falko.ZeroLogger.Microsoft.Hosting" />
         <PackageReference Include="Falko.ZeroLogger.Targets.File" />
         <PackageReference Include="Falko.ZeroLogger.Targets.Console" />
         <PackageReference Include="Falko.ZeroLogger.Targets.Concurrent" />

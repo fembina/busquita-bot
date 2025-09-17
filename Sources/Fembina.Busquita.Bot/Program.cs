@@ -26,10 +26,10 @@ await new HostBuilder()
     .UseConfigurations()
     .UseZeroLogger(loggerRuntime)
     .UseTalkie(configuration => configuration
-        .SetShutdownOnUnobservedExceptions()
-        .SetSignalsLogging())
+        .SetShutdownOnUnobservedExceptions())
     .ConfigureServices(services => services
         .AddSingleton<IAssetProvider, AssetProvider>()
+        .AddBehaviorsSubscriber<HelloCommandSubscriber>()
         .AddBehaviorsSubscriber<StartCommandSubscriber>()
         .AddIntegrationsSubscriber<TelegramSubscriber>())
     .RunConsoleAsync();

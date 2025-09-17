@@ -26,9 +26,9 @@ public sealed class StartCommandSubscriber(IAssetProvider assets) : IBehaviorsSu
         flow.Subscribe<MessagePublishedSignal>(signals => signals
             .SkipSelfRelated()
             .OnlyCommands("start")
-            .Do(signal => Logger
+            .Handle(context => Logger
                 .Debug("Handling start command for environment {Environment}",
-                    signal.Message.EnvironmentProfile))
+                    context.GetMessage().EnvironmentProfile))
             .HandleAsync((context, cancellation) => context
                 .ToMessageController()
                 .PublishMessageAsync(message => message

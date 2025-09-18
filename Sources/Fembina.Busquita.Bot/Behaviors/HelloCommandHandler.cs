@@ -1,11 +1,13 @@
 using System.Logging.Factories;
 using System.Logging.Loggers;
-using Falko.Talkie.Controllers.MessageControllers;
+using Falko.Talkie.Controllers.AttachmentControllers;
 using Falko.Talkie.Handlers;
 using Falko.Talkie.Models.Messages;
 using Falko.Talkie.Models.Messages.Contents;
 using Falko.Talkie.Models.Messages.Contents.Styles;
+using Falko.Talkie.Models.Messages.Features;
 using Falko.Talkie.Models.Messages.Incoming;
+using Falko.Talkie.Models.Messages.Outgoing;
 using Falko.Talkie.Models.Profiles;
 using Falko.Talkie.Signals;
 
@@ -39,23 +41,40 @@ public class HelloCommandHandler : SignalHandler<MessagePublishedSignal>
         contentBuilder.AddText(publisherName);
         var content = contentBuilder.Build();
 
+        var attachmentController = context.GetAttachmentController();
+        var imageController = attachmentController.ImageAttachment;
+        var image = imageController.Build("https://placecats.com/300/200");
+
+        var messageIdentifier = message.ToGlobalMessageIdentifier();
+
+        var messageBuilder = new OutgoingMessageBuilder();
+        messageBuilder.SetReply(messageIdentifier);
+        messageBuilder.AddContent(content);
+        messageBuilder.AddFeature(SilenceMessageFeature.Instance);
+        messageBuilder.AddAttachment(image);
+        var publishingMessage = messageBuilder.Build();
+
         var messageController = context.ToMessageController();
 
         Logger.Info("Publishing hello message to {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
-        var outgoingMessage = await messageController.PublishMessageAsync(content, cancellationToken);
+        var outgoingMessage = await messageController.PublishMessageAsync(publishingMessage, cancellationToken);
         Logger.Info("Published hello message to {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
 
         await Task.Delay(TimeSpan.FromSeconds(3), cancellationToken);
 
-        Logger.Info("Unpublishing hello message to {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
+        Logger.Info("Unpublishing hello message for {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
         var outgoingMessageIdentifier = outgoingMessage.ToGlobalMessageIdentifier();
         await messageController.UnpublishMessageAsync(outgoingMessageIdentifier, cancellationToken);
-        Logger.Info("Unpublished hello message to {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
+        Logger.Info("Unpublished hello message for {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
+
+        Logger.Info("Unpublishing hello command message from {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
+        await messageController.UnpublishMessageAsync(messageIdentifier, cancellationToken);
+        Logger.Info("Unpublished hello command message from {PublisherDisplayName}:{LogIdentifier}", publisherName, logIdentifier);
     }
 
     private string GetDisplayName(IProfile profile)
     {
-        const string defaultName = "Unknown";
+        const string defaultName = "Anonymous";
 
         var userProfile = profile.AsUserProfile();
 
